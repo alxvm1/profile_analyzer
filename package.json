@@ -1,0 +1,17 @@
+{
+	"name": "cs_project",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev:web": "pnpm --filter web dev",
+		"dev:api": "pnpm --filter api dev",
+		"dev": "pnpm -r --parallel dev",
+		"build": "pnpm -r build",
+		"typecheck": "pnpm -r typecheck"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.34.1"
+}
