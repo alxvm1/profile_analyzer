@@ -1,0 +1,64 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  width: 100%;
+  border-radius: var(--radius-xl);
+  background: var(--glass-bg-raised);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-top-color: var(--glass-border-top);
+  box-shadow: var(--glass-shadow), var(--glass-inner);
+}
+
+/* Liquid displacement — Chrome/Firefox only (Safari не поддерживает url() в backdrop-filter) */
+@supports not (hanging-punctuation: first) {
+  .search-bar {
+    backdrop-filter: url(#liquid-glass) blur(28px) saturate(180%);
+  }
+}
+
+.search-bar .field {
+  flex: 1;
+  gap: 0;
+}
+
+.search-bar .input {
+  background: none;
+  border-color: transparent;
+  box-shadow: none;
+  border-radius: var(--radius-lg);
+  height: 44px;
+}
+
+.search-bar .input:hover {
+  border-color: transparent;
+}
+
+.search-bar .input:focus {
+  background: oklch(0.97 0.004 165 / 0.06);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.search-bar .btn {
+  border-radius: var(--radius-lg);
+  background: var(--glass-accent-bg);
+  color: var(--c-accent-bright);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-accent-inner);
+}
+
+.search-bar .btn:hover {
+  background: oklch(0.825 0.190 155 / 0.18);
+  box-shadow: var(--glass-shadow), var(--glass-accent-inner);
+}
+
+@supports not (hanging-punctuation: first) {
+  .search-bar .btn {
+    backdrop-filter: url(#liquid-glass) blur(28px) saturate(180%);
+  }
+}

@@ -1,0 +1,1 @@
+export { playerPageModel } from './player'
