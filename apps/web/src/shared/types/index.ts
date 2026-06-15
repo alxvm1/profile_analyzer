@@ -1,1 +1,1 @@
-export type { RiskTier, PlayerAnalysis } from '@cs/shared-types'
+export type { TRiskTier, IPlayerAnalysis } from '@cs/shared-types'
