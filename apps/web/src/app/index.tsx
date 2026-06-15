@@ -1,5 +1,11 @@
+import { NavBar } from '@widgets/NavBar'
 import { HomePage } from '@pages/home'
+import { Background } from '@shared/ui'
 
-export function App() {
-  return <HomePage />
-}
+export const App = () => (
+  <>
+    <Background />
+    <NavBar glass />
+    <HomePage />
+  </>
+)
