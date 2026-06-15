@@ -3,10 +3,9 @@ import { cors } from 'hono/cors'
 import { playerRouter } from './routes/player.js'
 
 const app = new Hono()
-
-app.use('*', cors())
-
-app.get('/health', (c) => c.json({ status: 'ok' }))
-app.route('/api/player', playerRouter)
+  .use('*', cors())
+  .get('/health', (c) => c.json({ status: 'ok' }))
+  .route('/api/player', playerRouter)
 
 export default app
+export type AppType = typeof app

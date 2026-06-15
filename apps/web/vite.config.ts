@@ -13,6 +13,7 @@ export default defineConfig({
       '@features': resolve(__dirname, 'src/features'),
       '@entities': resolve(__dirname, 'src/entities'),
       '@shared': resolve(__dirname, 'src/shared'),
+      '@api': resolve(__dirname, '../../apps/api/src'),
     },
   },
 })

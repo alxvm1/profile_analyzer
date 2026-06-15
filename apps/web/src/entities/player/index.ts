@@ -1,1 +1,2 @@
-export type { RiskTier, PlayerAnalysis } from './model/types'
+export { playerModel } from './model'
+export type { TPlayerResponse } from './types'

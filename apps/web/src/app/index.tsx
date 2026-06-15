@@ -1,11 +1,16 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { NavBar } from '@widgets/NavBar'
-import { HomePage } from '@pages/home'
 import { Background } from '@shared/ui'
+import { HomePage } from '@pages/HomePage'
+import { PlayerPage } from '@pages/PlayerPage'
 
 export const App = () => (
-  <>
+  <BrowserRouter>
     <Background />
     <NavBar glass />
-    <HomePage />
-  </>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/:input" element={<PlayerPage />} />
+    </Routes>
+  </BrowserRouter>
 )

@@ -5,9 +5,7 @@ import { getLeetifyProfile } from '../services/leetify.js'
 import { calculateTrust } from '../services/trust.js'
 import { env } from '../lib/env.js'
 
-export const playerRouter = new Hono()
-
-playerRouter.get('/:input', async (c) => {
+export const playerRouter = new Hono().get('/:input', async (c) => {
   if (!env.STEAM_API_KEY) {
     return c.json({ error: 'STEAM_API_KEY_NOT_CONFIGURED' }, 503)
   }
@@ -31,9 +29,7 @@ playerRouter.get('/:input', async (c) => {
       return c.json({ error: 'LEETIFY_PROFILE_NOT_FOUND' }, 404)
     }
 
-    const faceitStats = faceit
-      ? await getFaceitStats(faceit.player_id).catch(() => null)
-      : null
+    const faceitStats = faceit ? await getFaceitStats(faceit.player_id).catch(() => null) : null
 
     const trust = calculateTrust({
       profile: steamData.profile,

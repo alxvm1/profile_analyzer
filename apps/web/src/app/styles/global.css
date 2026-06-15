@@ -153,7 +153,7 @@
 
   /* LIQUID GLASS */
   --glass-bg:            oklch(0.97 0.004 165 / 0.06);
-  --glass-bg-raised:     oklch(0.97 0.004 165 / 0.10);
+  --glass-bg-raised:     oklch(0.97 0.004 165 / 0.04);
   --glass-bg-heavy:      oklch(0.97 0.004 165 / 0.17);
   --glass-border:        oklch(0.97 0.004 165 / 0.13);
   --glass-border-top:    oklch(0.97 0.004 165 / 0.30);
