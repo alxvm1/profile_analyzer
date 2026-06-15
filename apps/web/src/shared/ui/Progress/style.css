@@ -1,0 +1,2 @@
+.progress { height: 8px; border-radius: var(--radius-pill); background: var(--c-surface-3); overflow: hidden; }
+.progress__bar { height: 100%; border-radius: var(--radius-pill); background: var(--c-accent); transition: width var(--dur-base) var(--ease-out); }

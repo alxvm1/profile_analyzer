@@ -1,0 +1,64 @@
+/* Bar meter */
+.meter { display: flex; flex-direction: column; gap: var(--space-2); }
+.meter__track {
+  position: relative;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--c-trust-low), var(--c-trust-mid) 52%, var(--c-trust-high));
+}
+.meter__mask { position: absolute; top: 0; bottom: 0; right: 0; background: var(--c-surface-1); border-left: 2px solid var(--c-bg); }
+.meter__scale { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--c-text-muted); }
+
+/* Circular ring — set --val (0-100) and --ring-color via inline style */
+.ring {
+  --val: 72;
+  --ring-color: var(--c-trust-high);
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex: none;
+}
+.ring__bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(var(--ring-color) calc(var(--val) * 1%), var(--c-surface-3) 0);
+  -webkit-mask: radial-gradient(closest-side, transparent 70%, #000 72%);
+          mask: radial-gradient(closest-side, transparent 70%, #000 72%);
+}
+.ring__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.ring__num { font-family: var(--font-mono); font-weight: var(--fw-bold); font-size: 30px; color: var(--c-text-bright); line-height: 1; }
+.ring__cap { font-size: 11px; color: var(--c-text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* Rank badge */
+.rank {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius-md);
+}
+.rank__lvl {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-weight: var(--fw-bold);
+  font-size: 16px;
+  color: var(--c-on-accent);
+  background: var(--c-accent);
+}
+.rank__meta { display: flex; flex-direction: column; line-height: 1.2; }
