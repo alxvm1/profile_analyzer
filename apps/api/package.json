@@ -1,17 +1,18 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "type": "module",
   "packageManager": "pnpm@10.34.1",
+  "scripts": {
+    "dev": "tsx watch src/dev.ts",
+    "build": "tsc",
+    "start": "node dist/dev.js"
+  },
   "dependencies": {
-    "@cs/shared-types": "workspace:*"
+    "@cs/shared-types": "workspace:*",
+    "@hono/node-server": "^2.0.4",
+    "dotenv": "^17.4.2",
+    "hono": "^4.12.25"
   },
   "devDependencies": {
     "@types/node": "^24.13.1",
