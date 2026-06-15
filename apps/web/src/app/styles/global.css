@@ -210,25 +210,21 @@ a { color: inherit; text-decoration: none; }
 .data-lg { font-family: var(--font-mono); font-weight: var(--fw-bold);     font-size: 32px; line-height: 1;   letter-spacing: -0.01em; font-feature-settings: "tnum"; color: var(--c-text-bright); }
 .data-md { font-family: var(--font-mono); font-weight: var(--fw-semibold); font-size: 20px; line-height: 1.1; font-feature-settings: "tnum"; }
 
-/* ---------- ROOT LAYOUT ---------- */
-html, body { width: 100%; }
-
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100svh;
-  width: 100%;
-}
-
-.page-container {
-  width: 100%;
-  max-width: var(--container-max);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--space-6);
-  padding-right: var(--space-6);
-}
-
-/* ---------- ICON SIZES ---------- */
+/* ---------- LAYOUT UTILITIES ---------- */
+.row     { display: flex; align-items: center; }
+.col     { display: flex; flex-direction: column; }
+.wrap    { flex-wrap: wrap; }
+.between { justify-content: space-between; }
+.center  { justify-content: center; }
+.aic     { align-items: center; }
+.ais     { align-items: flex-start; }
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-5 { gap: var(--space-5); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+.grow  { flex: 1; }
 .icon    { width: 20px; height: 20px; flex: none; stroke-width: 1.6; }
 .icon-sm { width: 16px; height: 16px; flex: none; }

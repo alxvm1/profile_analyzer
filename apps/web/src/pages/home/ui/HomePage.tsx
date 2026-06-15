@@ -2,6 +2,7 @@ import { useState } from 'react'
 import {
   Avatar, Badge, Button, Card,
   StatTile, Tabs, TrustRing, TrustMeter,
+  Input,
 } from '@shared/ui'
 
 const tabs = [
@@ -42,15 +43,15 @@ export const HomePage = () => {
           <Badge variant='glass'>title</Badge>
           <TrustRing value={0} color="var(--c-surface-3)" />
           <div className="flex flex-col items-center gap-2">
-            <h1 className="t-h1">Анализ профиля CS2</h1>
-            <p className="t-body t-muted">Введи Steam URL или никнейм для анализа</p>
+            <h1 className="t-h1">Inspect your Enemy</h1>
+            <p className="t-body t-muted">Enter Steam URL or nickname to analyze</p>
           </div>
           <div className="flex gap-3 w-full max-w-[480px]">
             <div className="input-group grow">
-              <input placeholder="steamcommunity.com/id/..." />
+              <Input placeholder="steamcommunity.com/id/..."/>
             </div>
             <Button variant="primary" onClick={() => setAnalyzed(true)}>
-              Анализировать
+              Go
             </Button>
           </div>
         </div>

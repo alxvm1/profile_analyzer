@@ -10,7 +10,6 @@
 .meter__mask { position: absolute; top: 0; bottom: 0; right: 0; background: var(--c-surface-1); border-left: 2px solid var(--c-bg); }
 .meter__scale { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--c-text-muted); }
 
-/* Circular ring — set --val (0-100) and --ring-color via inline style */
 .ring {
   --val: 72;
   --ring-color: var(--c-trust-high);
