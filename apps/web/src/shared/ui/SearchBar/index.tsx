@@ -1,22 +1,31 @@
+import { useState } from 'react'
 import { Input } from '../Input'
 import { Button } from '../Button'
 import './style.css'
 
-type SearchBarProps = {
-  onSubmit?: (value: string) => void
-}
+type SearchBarProps = { onSubmit?: (value: string) => void }
 
 export const SearchBar = ({ onSubmit }: SearchBarProps) => {
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const value = new FormData(e.currentTarget).get('query') as string
-    onSubmit?.(value.trim())
-  }
+  const [value, setValue] = useState('')
 
   return (
-    <form className="search-bar" onSubmit={handleSubmit}>
-      <Input name="query" placeholder="steamcommunity.com/id/..." />
-      <Button type="submit" variant="primary">Analyze</Button>
+    <form className="search-bar" onSubmit={(e) => {
+      e.preventDefault()
+      const trimmed = value.trim()
+      if (trimmed) onSubmit?.(trimmed)
+    }}>
+      <Input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="steamcommunity.com/id/... · 7656... · STEAM_0:1:..."
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck={false}
+      />
+      <Button type="submit" variant="primary" disabled={!value.trim()}>
+        Analyze
+      </Button>
     </form>
   )
 }

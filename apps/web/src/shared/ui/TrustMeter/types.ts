@@ -1,6 +1,8 @@
+import type { TrustTier } from '@cs/shared-types'
+
 export interface TrustRingProps {
   value: number
-  color?: string
+  tier: TrustTier
 }
 
 export interface TrustMeterProps {

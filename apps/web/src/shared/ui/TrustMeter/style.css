@@ -1,42 +1,75 @@
 /* Bar meter */
-.meter { display: flex; flex-direction: column; gap: var(--space-2); }
+.meter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
 .meter__track {
   position: relative;
   height: 10px;
   border-radius: var(--radius-pill);
   overflow: hidden;
-  background: linear-gradient(90deg, var(--c-trust-low), var(--c-trust-mid) 52%, var(--c-trust-high));
+  background: linear-gradient(
+    90deg,
+    var(--c-trust-low),
+    var(--c-trust-mid) 52%,
+    var(--c-trust-high)
+  );
 }
-.meter__mask { position: absolute; top: 0; bottom: 0; right: 0; background: var(--c-surface-1); border-left: 2px solid var(--c-bg); }
-.meter__scale { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--c-text-muted); }
+.meter__mask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: var(--c-surface-1);
+  border-left: 2px solid var(--c-bg);
+}
+.meter__scale {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-text-muted);
+}
 
 .ring {
-  --val: 72;
   --ring-color: var(--c-trust-high);
-  position: relative;
-  width: 120px;
-  height: 120px;
+  --tw-ring-shadow: 0 0 #0000;
+  width: 160px;
+  height: 160px;
   flex: none;
+  overflow: visible;
+  transform: rotate(-90deg);
 }
-.ring__bg {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(var(--ring-color) calc(var(--val) * 1%), var(--c-surface-3) 0);
-  -webkit-mask: radial-gradient(closest-side, transparent 70%, #000 72%);
-          mask: radial-gradient(closest-side, transparent 70%, #000 72%);
+.ring__track {
+  fill: none;
+  stroke: var(--c-surface-3);
+  stroke-width: 8;
 }
-.ring__label {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
+.ring__fill {
+  fill: none;
+  stroke: var(--ring-color);
+  stroke-width: 8;
+  transition: stroke-dashoffset var(--dur-slow) var(--ease-out);
 }
-.ring__num { font-family: var(--font-mono); font-weight: var(--fw-bold); font-size: 30px; color: var(--c-text-bright); line-height: 1; }
-.ring__cap { font-size: 11px; color: var(--c-text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.ring__num {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: 22.5px;
+  fill: var(--c-text-bright);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  transform: rotate(90deg);
+  transform-origin: 50px 50px;
+}
+.ring__cap {
+  font-size: 12.5px;
+  fill: var(--c-text-muted);
+  text-anchor: middle;
+  letter-spacing: 0.08em;
+  transform: rotate(90deg);
+  transform-origin: 50px 50px;
+}
 
 /* Rank badge */
 .rank {
@@ -60,4 +93,8 @@
   color: var(--c-on-accent);
   background: var(--c-accent);
 }
-.rank__meta { display: flex; flex-direction: column; line-height: 1.2; }
+.rank__meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
