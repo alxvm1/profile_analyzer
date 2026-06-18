@@ -1,1 +1,3 @@
-export { playerPageModel } from './player'
+import { overviewModel } from './overview'
+
+export const playerPageModel = { overviewModel }

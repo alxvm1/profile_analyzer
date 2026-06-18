@@ -13,7 +13,27 @@ const KNOWN_ERRORS: ApiErrorCode[] = [
   'INVALID_INPUT',
 ]
 
-export const playerRouter = new Hono().get('/:input', async (c) => {
+export const playerRouter = new Hono()
+  .get('/:input/check', async (c) => {
+    if (!env.STEAM_API_KEY) {
+      return c.json({ error: 'STEAM_API_KEY_NOT_CONFIGURED' as ApiErrorCode }, 503)
+    }
+    const input = c.req.param('input')
+    if (!input?.trim()) {
+      return c.json({ error: 'INVALID_INPUT' as ApiErrorCode }, 400)
+    }
+    try {
+      await getSteamProfile(input)
+      return c.json({ exists: true })
+    } catch (err) {
+      const raw = err instanceof Error ? err.message : ''
+      const code: ApiErrorCode = KNOWN_ERRORS.includes(raw as ApiErrorCode)
+        ? (raw as ApiErrorCode)
+        : 'UNKNOWN_ERROR'
+      return c.json({ error: code }, code === 'STEAM_PROFILE_NOT_FOUND' ? 404 : 500)
+    }
+  })
+  .get('/:input', async (c) => {
   if (!env.STEAM_API_KEY) {
     return c.json({ error: 'STEAM_API_KEY_NOT_CONFIGURED' as ApiErrorCode }, 503)
   }

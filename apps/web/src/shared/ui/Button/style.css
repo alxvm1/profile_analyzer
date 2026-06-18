@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  font-family: var(--font-ui);
+  font-family: var(--font-inter);
   font-weight: var(--fw-semibold);
   font-size: var(--fs-body-sm);
   line-height: 1;
@@ -45,15 +45,6 @@
 .btn--danger { --btn-bg: var(--c-danger-tint); --btn-bd: transparent; color: var(--c-danger); }
 .btn--danger:hover { --btn-bg: var(--c-danger); --btn-fg: var(--c-text-bright); color: var(--c-text-bright); }
 
-.btn--glass {
-  --btn-bg: var(--glass-bg-raised);
-  --btn-bd: var(--glass-border);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-inner);
-  color: var(--c-text-bright);
-}
-.btn--glass:hover { --btn-bg: var(--glass-bg-heavy); box-shadow: var(--glass-shadow), var(--glass-inner); }
 
 .btn--lg   { height: 52px; font-size: var(--fs-body); padding: 0 var(--space-7); border-radius: var(--radius-lg); }
 .btn--sm   { height: 36px; font-size: var(--fs-caption); padding: 0 var(--space-4); border-radius: var(--radius-sm); }

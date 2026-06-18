@@ -6,5 +6,4 @@ export interface NavLink {
 
 export interface NavBarProps {
   links?: NavLink[]
-  glass?: boolean
 }

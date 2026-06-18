@@ -1,18 +1,5 @@
-.topnav {
+.navbar {
   display: flex;
-  align-items: center;
-  gap: var(--space-6);
-  height: 68px;
-  padding: 0 var(--space-7);
-  background: oklch(0.155 0.008 165 / 0.8);
-  backdrop-filter: blur(18px);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-
-.topnav--glass {
-  background: oklch(0.155 0.008 165 / 0.50) !important;
-  backdrop-filter: var(--glass-blur-heavy) !important;
-  -webkit-backdrop-filter: var(--glass-blur-heavy) !important;
+  justify-content: center;
+  padding: 24px 0;
 }

@@ -5,9 +5,9 @@ const pageLoaded = createEvent<string>()
 
 sample({
   clock: pageLoaded,
-  target: playerModel.events.searchSubmitted,
+  target: playerModel.playerInfoModel.events.searchSubmitted,
 })
 
-export const playerPageModel = {
+export const overviewModel = {
   events: { pageLoaded },
 }

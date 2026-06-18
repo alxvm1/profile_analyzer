@@ -1,0 +1,30 @@
+.premier-badge {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.premier-badge__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.premier-badge__text {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding-left: 12%;
+}
+
+.premier-badge__number {
+  display: flex;
+  align-items: baseline;
+  font-style: italic;
+  font-weight: 700;
+  font-family: var(--font-bounded);
+  line-height: 1;
+}

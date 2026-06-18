@@ -1,58 +1,17 @@
 .glass {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow), var(--glass-inner);
-}
-.glass--raised {
-  background: var(--glass-bg-raised) !important;
-  backdrop-filter: var(--glass-blur-heavy) !important;
-  -webkit-backdrop-filter: var(--glass-blur-heavy) !important;
-  border-color: oklch(0.97 0.004 165 / 0.18) !important;
-  box-shadow: var(--glass-shadow-lg), var(--glass-inner) !important;
-}
-.glass--accent {
-  background: var(--glass-accent-bg) !important;
-  border-color: var(--glass-accent-border) !important;
-  box-shadow: var(--glass-shadow), var(--glass-accent-inner) !important;
-}
+  --glass-intensity: 1;
 
-/* Floating panel (visionOS-style window) */
-.glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur-heavy);
-  -webkit-backdrop-filter: var(--glass-blur-heavy);
-  border: 1px solid var(--glass-border);
-  border-top-color: var(--glass-border-top);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--glass-shadow-lg), var(--glass-inner);
-  overflow: hidden;
-}
-.glass-panel__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-5) var(--space-6);
-  border-bottom: 1px solid var(--glass-border);
-  background: oklch(0 0 0 / 0.06);
-}
-
-/* Pill (visionOS control-strip style) */
-.glass-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-2) var(--space-5);
-  background: var(--glass-bg-heavy);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  border-top-color: var(--glass-border-top);
-  border-radius: var(--radius-pill);
-  box-shadow: var(--glass-shadow), var(--glass-inner);
-  font-size: var(--fs-body-sm);
-  font-weight: var(--fw-semibold);
-  color: var(--c-text-bright);
-  white-space: nowrap;
+  background: rgb(255 255 255 / calc(0.06 * var(--glass-intensity)));
+  backdrop-filter:
+    blur(calc(28px * var(--glass-intensity)))
+    saturate(calc(100% + 80% * var(--glass-intensity)));
+  -webkit-backdrop-filter:
+    blur(calc(28px * var(--glass-intensity)))
+    saturate(calc(100% + 80% * var(--glass-intensity)));
+  border: 1px solid rgb(255 255 255 / calc(0.13 * var(--glass-intensity)));
+  border-top-color: rgb(255 255 255 / calc(0.30 * var(--glass-intensity)));
+  box-shadow:
+    0 2px 10px rgb(0 0 0 / calc(0.20 * var(--glass-intensity))),
+    0 1px 2px rgb(0 0 0 / calc(0.11 * var(--glass-intensity))),
+    inset 0 1.5px 0 rgb(255 255 255 / calc(0.14 * var(--glass-intensity)));
 }

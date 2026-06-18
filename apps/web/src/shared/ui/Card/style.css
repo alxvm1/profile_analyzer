@@ -11,21 +11,6 @@
 .card--pad-lg { padding: var(--space-7); }
 .card--hover:hover { border-color: var(--c-border-strong); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .card--accent { border-color: var(--c-accent-deep); box-shadow: var(--glow-accent-sm); }
-.card--glass {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  border-top-color: var(--glass-border-top);
-  box-shadow: var(--glass-shadow), var(--glass-inner);
-}
-.card--glass:hover {
-  background: var(--glass-bg-raised);
-  border-color: oklch(0.97 0.004 165 / 0.22);
-  border-top-color: oklch(0.97 0.004 165 / 0.38);
-  transform: translateY(-2px);
-  box-shadow: var(--glass-shadow-lg), var(--glass-inner);
-}
 
 .panel { background: var(--c-surface-1); border: var(--border-hair); border-radius: var(--radius-lg); overflow: hidden; }
 .panel__head {

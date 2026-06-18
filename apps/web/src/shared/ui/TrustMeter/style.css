@@ -53,7 +53,7 @@
   transition: stroke-dashoffset var(--dur-slow) var(--ease-out);
 }
 .ring__num {
-  font-family: var(--font-display);
+  font-family: var(--font-bounded);
   font-weight: var(--fw-bold);
   font-size: 22.5px;
   fill: var(--c-text-bright);

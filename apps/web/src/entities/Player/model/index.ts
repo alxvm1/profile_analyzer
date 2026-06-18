@@ -1,1 +1,3 @@
-export { playerModel } from './player'
+import { playerInfoModel } from './playerInfo'
+
+export const playerModel = { playerInfoModel }

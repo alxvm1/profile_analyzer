@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom'
+import HeaderIcon from './assets/HeaderIcon.svg?react'
 import './style.css'
-import type { NavBarProps } from './types'
 
-export const NavBar = ({glass = false }: NavBarProps) => (
-  <header className={`topnav ${glass ? 'topnav--glass' : ''}`}>
-    <span className="t-h4 t-bright">SIGHTLINE</span>
+export const NavBar = () => (
+  <header className="navbar">
+    <Link to="/">
+      <HeaderIcon />
+    </Link>
   </header>
 )

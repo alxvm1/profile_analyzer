@@ -1,18 +1,9 @@
-import {
-  createEffect,
-  createEvent,
-  createStore,
-  sample,
-} from 'effector'
+import { createEffect, createEvent, createStore, sample } from 'effector'
 import { ApiError } from '@cs/shared-types'
 import { getPlayer } from '../api'
 import type { TPlayerResponse } from '../types'
 
-const fetchPlayerFx = createEffect<
-  string,
-  TPlayerResponse,
-  ApiError
->(getPlayer)
+const fetchPlayerFx = createEffect<string, TPlayerResponse, ApiError>(getPlayer)
 
 const searchSubmitted = createEvent<string>()
 
@@ -28,7 +19,7 @@ sample({
 sample({ clock: fetchPlayerFx.doneData, target: $player })
 sample({ clock: fetchPlayerFx.failData, target: $error })
 
-export const playerModel = {
+export const playerInfoModel = {
   events: { searchSubmitted },
   stores: {
     $player,
