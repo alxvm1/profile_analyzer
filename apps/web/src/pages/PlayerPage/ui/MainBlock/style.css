@@ -24,6 +24,8 @@
 
 .main-block__information-wrapper {
   background-color: rgba(0, 0, 0, 0.48);
+  padding: 24px 48px; /* TODO: remove */
+  width: 100%; /* TODO: remove */
 }
 
 .main-block__information-title {

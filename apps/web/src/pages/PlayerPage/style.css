@@ -12,6 +12,7 @@
   background-color: rgba(0, 255, 145, 0.08);
   border-radius: 12px;
   --glass-intensity: 0.4;
+  flex-shrink: 0; /* TODO: remove */
 }
 
 .player-page__right-container {

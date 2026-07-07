@@ -1,12 +1,9 @@
-import type { TPlayerResponse } from '@entities/Player'
 import { Avatar, FaceitLevel, PremierBadge } from '@shared/ui'
 import { formatAccountAge } from '../../lib/formatAccountAge'
 import { PLAYER_LINKS_CONFIG } from './config'
+import type { TPreviewBlockProps } from './types'
 import './style.css'
 
-type TPreviewBlockProps = {
-  player: TPlayerResponse
-}
 
 export const PreviewBlock = ({ player }: TPreviewBlockProps) => (
   <>

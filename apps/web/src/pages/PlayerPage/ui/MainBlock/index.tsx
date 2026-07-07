@@ -1,17 +1,13 @@
-import type { TPlayerResponse } from '@entities/Player'
 import SightlineIcon from './assets/sightlineIcon.svg?react'
 import FaceitIcon from './assets/faceitIcon.svg?react'
 import LeetifyIcon from './assets/leetifyIcon.svg?react'
 import { TrustRing } from '@shared/ui'
 import { MetricBar } from './ui/MetricBar'
+import type { TMainBlockProps } from './types'
 import './style.css'
 
-type TMainBlockProps = {
-  player: TPlayerResponse
-}
-
 export const MainBlock = ({ player }: TMainBlockProps) => {
-  console.log('[breakdown]', player.trust.breakdown)
+  console.log('[breakdown]', player.trust.breakdown) // TODO: remove
   return (
   <>
     <div className="main-block__slider-wrapper">
@@ -27,7 +23,7 @@ export const MainBlock = ({ player }: TMainBlockProps) => {
     </div>
     <div className="main-block__information-wrapper">
       <p className="main-block__information-title">Player Information</p>
-      <div className="flex flex-row">
+      <div className="flex flex-row gap-12">
         <TrustRing value={player.trust.score} tier={player.trust.tier} />
         <div>
           <MetricBar
