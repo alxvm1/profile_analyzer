@@ -51,9 +51,15 @@ export type LeetifyMeta = {
   gamersClubPlayerId?: string | null
 }
 
+export type LeetifyStats = {
+  ttd?: number
+  crosshairPlacement?: number
+}
+
 export type LeetifyProfile = {
   recentGameRatings: LeetifyRecentGameRatings
   games: LeetifyGame[]
   meta: LeetifyMeta
+  stats?: LeetifyStats
   isSensitiveDataVisible?: boolean
 }

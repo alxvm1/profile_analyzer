@@ -13,3 +13,10 @@
   border-radius: 12px;
   --glass-intensity: 0.4;
 }
+
+.player-page__right-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

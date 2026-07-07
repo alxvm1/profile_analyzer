@@ -19,6 +19,10 @@ export type TrustScore = {
     kd: MetricResult | null
     reactionTime: MetricResult | null
     preaim: MetricResult | null
+    timeToDamage: MetricResult | null
+    crosshairPlacement: MetricResult | null
+    adr: MetricResult | null
+    kast: MetricResult | null
     accountReputation: { score: number; flags: string[] }
     matchContext: { hasBannedPlayerInHistory: boolean; suspiciousMatchCount: number }
     rankMismatch: { premierRating: number; faceitLevel: number; flagged: boolean } | null

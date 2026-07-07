@@ -6,6 +6,7 @@ import { Loader } from '@shared/ui'
 import { playerPageModel } from './model'
 import { PreviewBlock } from './ui/PreviewBlock'
 import './style.css'
+import { MainBlock } from './ui/MainBlock'
 
 export const PlayerPage = () => {
   const { input } = useParams<{ input: string }>()
@@ -27,13 +28,13 @@ export const PlayerPage = () => {
 
   return (
     <main className="page-container py-10">
-      <section>
+      <section className="flex flex-row">
         <div className="player-page__left-container glass">
           <PreviewBlock player={player} />
         </div>
-        <p>{player.trust.score}</p>
-        <p>{player.trust.flags}</p>
-        <div></div>
+        <div className="player-page__right-container">
+          <MainBlock player={player} />
+        </div>
       </section>
     </main>
   )

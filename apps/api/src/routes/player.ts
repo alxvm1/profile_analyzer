@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 import type { ApiErrorCode } from '@cs/shared-types'
 import { getSteamProfile, getSteamPlaytime } from '../services/steam.js'
 import { getFaceitPlayer, getFaceitStats } from '../services/faceit.js'
-import { getLeetifyProfile } from '../services/leetify.js'
+import { getLeetifyProfile, getLeetifyStats } from '../services/leetify.js'
 import { calculateTrust } from '../services/trust.js'
 import { env } from '../lib/env.js'
 
@@ -53,7 +53,10 @@ export const playerRouter = new Hono()
       getLeetifyProfile(steamData.steamId).catch(() => null),
     ])
 
-    const faceitStats = faceit ? await getFaceitStats(faceit.player_id).catch(() => null) : null
+    const [faceitStats, leetifyStats] = await Promise.all([
+      faceit ? getFaceitStats(faceit.player_id).catch(() => null) : Promise.resolve(null),
+      leetify ? getLeetifyStats(steamData.steamId).catch(() => null) : Promise.resolve(null),
+    ])
 
     const premierRating = leetify?.games
       .filter(g => g.dataSource === 'matchmaking' && g.rankType === 11 && g.skillLevel > 0)
@@ -67,6 +70,7 @@ export const playerRouter = new Hono()
       faceit,
       faceitStats,
       leetify,
+      leetifyStats,
       premierRating,
     })
 

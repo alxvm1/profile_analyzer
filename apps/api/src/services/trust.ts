@@ -1,6 +1,6 @@
 import type { SteamProfile, SteamBans, SteamPlaytime } from '../types/steam.js'
 import type { FaceitPlayer, FaceitStats } from '../types/faceit.js'
-import type { LeetifyProfile } from '../types/leetify.js'
+import type { LeetifyProfile, LeetifyStats } from '../types/leetify.js'
 import type { TrustTier, TrustScore, MetricResult } from '@cs/shared-types'
 
 export type { TrustTier, TrustScore, MetricResult }
@@ -17,6 +17,7 @@ export type TrustInput = {
   faceit: FaceitPlayer | null
   faceitStats: FaceitStats | null
   leetify: LeetifyProfile | null
+  leetifyStats: LeetifyStats | null
   premierRating: number | null
 }
 
@@ -89,6 +90,62 @@ const NORMS: Record<string, RangeTable> = {
     8:  { min: 1,  max: 38 },
     9:  { min: 1,  max: 35 },
     10: { min: 1,  max: 32 },
+  },
+  // TTD (мс) — меньше лучше, < 150 подозрительно
+  timeToDamage: {
+    0:  { min: 150, max: 650 },
+    1:  { min: 150, max: 600 },
+    2:  { min: 150, max: 570 },
+    3:  { min: 150, max: 530 },
+    4:  { min: 150, max: 500 },
+    5:  { min: 150, max: 470 },
+    6:  { min: 150, max: 440 },
+    7:  { min: 150, max: 410 },
+    8:  { min: 150, max: 390 },
+    9:  { min: 150, max: 360 },
+    10: { min: 150, max: 330 },
+  },
+  // Crosshair Placement (°) — меньше лучше, < 2° подозрительно
+  crosshairPlacement: {
+    0:  { min: 2, max: 14 },
+    1:  { min: 2, max: 13 },
+    2:  { min: 2, max: 12 },
+    3:  { min: 2, max: 11 },
+    4:  { min: 2, max: 10 },
+    5:  { min: 2, max: 9  },
+    6:  { min: 2, max: 8  },
+    7:  { min: 2, max: 7  },
+    8:  { min: 2, max: 6  },
+    9:  { min: 2, max: 5  },
+    10: { min: 2, max: 4  },
+  },
+  // ADR — выше подозрительно если > 135
+  adr: {
+    0:  { min: 40, max: 135 },
+    1:  { min: 45, max: 135 },
+    2:  { min: 50, max: 135 },
+    3:  { min: 55, max: 135 },
+    4:  { min: 60, max: 135 },
+    5:  { min: 65, max: 135 },
+    6:  { min: 68, max: 135 },
+    7:  { min: 72, max: 135 },
+    8:  { min: 76, max: 135 },
+    9:  { min: 80, max: 135 },
+    10: { min: 85, max: 135 },
+  },
+  // KAST (%) — выше подозрительно если > 92%
+  kast: {
+    0:  { min: 40, max: 92 },
+    1:  { min: 45, max: 92 },
+    2:  { min: 50, max: 92 },
+    3:  { min: 52, max: 92 },
+    4:  { min: 55, max: 92 },
+    5:  { min: 58, max: 92 },
+    6:  { min: 60, max: 92 },
+    7:  { min: 63, max: 92 },
+    8:  { min: 65, max: 92 },
+    9:  { min: 68, max: 92 },
+    10: { min: 70, max: 92 },
   },
 }
 
@@ -186,7 +243,7 @@ function calcAccountReputation(
 }
 
 export function calculateTrust(input: TrustInput): TrustScore {
-  const { profile, bans, playtime, faceit, faceitStats, leetify, premierRating } = input
+  const { profile, bans, playtime, faceit, faceitStats, leetify, leetifyStats, premierRating } = input
   const flags: string[] = []
 
   const faceitLevel = faceit?.games?.cs2?.skill_level ?? 0
@@ -209,7 +266,7 @@ export function calculateTrust(input: TrustInput): TrustScore {
   const hs = faceitStats ? parseFloat(faceitStats.lifetime.average_headshots_percent) : null
 
   const kdResult = kd != null ? normalizeMetric(kd, faceitLevel, 'kd') : null
-  // HS: Faceit stats приоритет, fallback — среднее accuracyHead из Leetify (доля → %)
+
   const hsFromLeetify = (() => {
     const samples = games
       .filter(g => g.dataSource === 'matchmaking')
@@ -223,7 +280,6 @@ export function calculateTrust(input: TrustInput): TrustScore {
   const hsValue = hs ?? hsFromLeetify
   const hsResult = hsValue != null ? normalizeMetric(hsValue, faceitLevel, 'hs') : null
 
-  // Фильтруем только Premier матчи для reaction/preaim
   const premierGames = games.filter(g => g.dataSource === 'matchmaking')
 
   const reactionSamples = premierGames
@@ -251,6 +307,31 @@ export function calculateTrust(input: TrustInput): TrustScore {
     ? normalizeMetric(avgPreaim, faceitLevel, 'preaim', true)
     : null
 
+  // ─── LEETIFY /v3/profile STATS ────────────────────────────────────────────
+
+  const timeToDamageResult = leetifyStats?.ttd != null
+    ? normalizeMetric(leetifyStats.ttd, faceitLevel, 'timeToDamage', true)
+    : null
+
+  const crosshairPlacementResult = leetifyStats?.crosshairPlacement != null
+    ? normalizeMetric(leetifyStats.crosshairPlacement, faceitLevel, 'crosshairPlacement', true)
+    : null
+
+  // ─── FACEIT LIFETIME ADR / KAST ───────────────────────────────────────────
+
+  const adrRaw = faceitStats?.lifetime.adr != null ? parseFloat(faceitStats.lifetime.adr) : null
+  const kastRaw = faceitStats?.lifetime.kast != null ? parseFloat(faceitStats.lifetime.kast) : null
+
+  const adrResult = adrRaw != null && !isNaN(adrRaw)
+    ? normalizeMetric(adrRaw, faceitLevel, 'adr')
+    : null
+
+  const kastResult = kastRaw != null && !isNaN(kastRaw)
+    ? normalizeMetric(kastRaw, faceitLevel, 'kast')
+    : null
+
+  // ─── MATCH CONTEXT ────────────────────────────────────────────────────────
+
   const hasBannedPlayerInHistory = games.some(g => g.hasBannedPlayer === true)
   const suspiciousMatchCount = games.filter(g => g.hasBannedPlayer === true).length
 
@@ -259,11 +340,15 @@ export function calculateTrust(input: TrustInput): TrustScore {
   // ─── АГРЕГАЦИЯ ───────────────────────────────────────────────────────────
 
   const metricWeights: Array<{ result: MetricResult | null; weight: number; flagKey: string }> = [
-    { result: aimResult,      weight: 2.5, flagKey: 'SUSPICIOUS_AIM_RATING' },
-    { result: reactionResult, weight: 2.5, flagKey: 'SUSPICIOUS_REACTION_TIME' },
-    { result: preaimResult,   weight: 2.0, flagKey: 'SUSPICIOUS_PREAIM' },
-    { result: kdResult,       weight: 1.5, flagKey: 'SUSPICIOUS_KD_FOR_RANK' },
-    { result: hsResult,       weight: 1.5, flagKey: 'SUSPICIOUS_HEADSHOT_RATE' },
+    { result: aimResult,               weight: 2.5, flagKey: 'SUSPICIOUS_AIM_RATING' },
+    { result: reactionResult,          weight: 2.5, flagKey: 'SUSPICIOUS_REACTION_TIME' },
+    { result: preaimResult,            weight: 2.0, flagKey: 'SUSPICIOUS_PREAIM' },
+    { result: kdResult,                weight: 1.5, flagKey: 'SUSPICIOUS_KD_FOR_RANK' },
+    { result: hsResult,                weight: 1.5, flagKey: 'SUSPICIOUS_HEADSHOT_RATE' },
+    { result: timeToDamageResult,      weight: 1.5, flagKey: 'SUSPICIOUS_TIME_TO_DAMAGE' },
+    { result: crosshairPlacementResult, weight: 1.5, flagKey: 'SUSPICIOUS_CROSSHAIR_PLACEMENT' },
+    { result: adrResult,               weight: 1.0, flagKey: 'SUSPICIOUS_ADR' },
+    { result: kastResult,              weight: 1.0, flagKey: 'SUSPICIOUS_KAST' },
   ]
 
   let totalWeight = 0
@@ -296,7 +381,6 @@ export function calculateTrust(input: TrustInput): TrustScore {
     ? Math.round((weightedSuspicion / totalWeight) * 100)
     : 0
 
-  // Низкая репутация усиливает подозрение, но не создаёт его из воздуха
   const repModifier = hasPerfData
     ? (1 - accountReputation.score / 100) * 15
     : 0
@@ -337,6 +421,10 @@ export function calculateTrust(input: TrustInput): TrustScore {
       kd: kdResult,
       reactionTime: reactionResult,
       preaim: preaimResult,
+      timeToDamage: timeToDamageResult,
+      crosshairPlacement: crosshairPlacementResult,
+      adr: adrResult,
+      kast: kastResult,
       accountReputation,
       matchContext: { hasBannedPlayerInHistory, suspiciousMatchCount },
       rankMismatch: premierRating !== null && faceitLevel > 0
